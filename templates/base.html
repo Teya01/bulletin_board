@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}Доска объявлений{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Доска объявлений</h1>
+        <p>Студент: Тэя Адалинская, ФБИ-24</p>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Главная</a>
+        {% if session.get('username') %}
+            <a href="{{ url_for('create_ad') }}">Создать объявление</a>
+            <a href="{{ url_for('logout') }}">Выход</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Вход</a>
+            <a href="{{ url_for('register') }}">Регистрация</a>
+        {% endif %}
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        &copy; 2024, Тэя Адалинская, ФБИ-24
+    </footer>
+</body>
+</html>

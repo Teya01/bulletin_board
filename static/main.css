@@ -1,0 +1,107 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f7f7; /* Светлый пастельный фон */
+    color: #333; /* Тёмный текст для контраста */
+}
+
+/* Заголовок */
+header {
+    background-color: #c4def6; /* Нежно-голубой */
+    color: #1b3a57; /* Тёмно-синий текст */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #a3cef1; /* Линия в акцентном цвете */
+}
+
+/* Навигация */
+nav {
+    background-color: #fceade; /* Бледно-персиковый */
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid #fbc4ab; /* Акцентная линия */
+}
+
+nav a {
+    margin: 0 15px;
+    color: #5b507a; /* Пастельно-фиолетовый */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #816c9c; /* Тёмный оттенок фиолетового */
+}
+
+/* Основной контент */
+main {
+    padding: 20px;
+}
+
+/* Списки */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #eef5db; /* Светло-зелёный */
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Формы */
+form {
+    background-color: #fff6f6; /* Пастельно-розовый */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7; /* Очень светлый серый */
+}
+
+form button {
+    background-color: #fbc4ab; /* Бледно-оранжевый */
+    color: #1b3a57; /* Тёмный синий текст */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #f5a25d; /* Яркий оранжевый */
+    color: white;
+}
+
+/* Нижний колонтитул */
+footer {
+    background-color: #a7bed3; /* Светло-голубой */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-top: 5px solid #6b9bbf; /* Тёмно-голубой акцент */
+    font-size: 14px;
+}

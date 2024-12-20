@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<h2>Объявления</h2>
+<ul>
+    {% for ad in ads %}
+        <li>
+            <h3>{{ ad.title }}</h3>
+            <p>{{ ad.content }}</p>
+            <small>Автор: {{ ad.author.username }}</small>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
