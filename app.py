@@ -223,37 +223,3 @@ def manage_users():
     db_close(conn, cur)
     return render_template("manage_users.html", users=users)
 
-
-import sqlite3
-
-def modify_column():
-    conn = sqlite3.connect('database.db')
-    cur = conn.cursor()
-
-    # Создание новой таблицы с измененным столбцом
-    cur.execute("""
-        CREATE TABLE ads_new (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            content VARCHAR(255),  -- Новый тип данных
-            author_id INTEGER NOT NULL,
-            FOREIGN KEY (author_id) REFERENCES users(id)
-        );
-    """)
-
-    # Перенос данных из старой таблицы в новую
-    cur.execute("""
-        INSERT INTO ads_new (id, title, content, author_id)
-        SELECT id, title, content, author_id FROM ads;
-    """)
-
-    # Удаление старой таблицы
-    cur.execute("DROP TABLE ads;")
-
-    # Переименование новой таблицы
-    cur.execute("ALTER TABLE ads_new RENAME TO ads;")
-
-    conn.commit()
-    conn.close()
-
-modify_column()
