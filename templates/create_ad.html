@@ -1,12 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Создание объявления{% endblock %}
+
+{% block title %}Создать объявление{% endblock %}
+
 {% block content %}
-<h2>Создать объявление</h2>
-<form method="post">
-    <label>Тема</label>
-    <input type="text" name="title" required>
-    <label>Содержание</label>
-    <textarea name="content" required></textarea>
-    <button type="submit">Создать</button>
+<h1 class="text-center">Создать новое объявление</h1>
+<form method="post" class="w-50 mx-auto">
+    <div class="mb-3">
+        <label for="title" class="form-label">Заголовок</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Содержание</label>
+        <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать</button>
 </form>
 {% endblock %}

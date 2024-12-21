@@ -1,107 +1,119 @@
-/* Общие стили */
+/* Основные настройки */
 body {
     font-family: 'Arial', sans-serif;
+    background-color: #FFF7E6; /* Мягкий пастельный бежевый */
+    color: #5A4A42; /* Тёплый коричневый для текста */
     margin: 0;
     padding: 0;
-    background-color: #f9f7f7; /* Светлый пастельный фон */
-    color: #333; /* Тёмный текст для контраста */
-}
-
-/* Заголовок */
-header {
-    background-color: #c4def6; /* Нежно-голубой */
-    color: #1b3a57; /* Тёмно-синий текст */
-    padding: 20px;
-    text-align: center;
-    border-bottom: 5px solid #a3cef1; /* Линия в акцентном цвете */
 }
 
 /* Навигация */
-nav {
-    background-color: #fceade; /* Бледно-персиковый */
-    padding: 10px;
-    text-align: center;
-    border-bottom: 2px solid #fbc4ab; /* Акцентная линия */
+.navbar {
+    background-color: #F4C2A1; /* Пастельный персиковый */
 }
 
-nav a {
-    margin: 0 15px;
-    color: #5b507a; /* Пастельно-фиолетовый */
-    text-decoration: none;
+.navbar-brand {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 1.5rem;
+    color: #5A4A42; /* Контрастный тёплый цвет */
 }
 
-nav a:hover {
-    color: #816c9c; /* Тёмный оттенок фиолетового */
+.navbar-nav .nav-link {
+    color: #5A4A42;
 }
 
-/* Основной контент */
-main {
-    padding: 20px;
+.navbar-nav .nav-link:hover {
+    color: #C97B63; /* Тёплый терракотовый */
 }
 
-/* Списки */
-ul {
-    list-style-type: none;
-    padding: 0;
+/* Заголовки */
+h1, h2 {
+    color: #C97B63; /* Тёплый терракотовый */
+    text-align: center;
+    margin-top: 20px;
 }
 
-li {
-    background-color: #eef5db; /* Светло-зелёный */
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Карточки объявлений */
+.card {
+    background-color: #FDEBD0; /* Пастельный кремовый */
+    border: 1px solid #FAD7A0; /* Тёплый золотистый */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #5A4A42;
+}
+
+.card-text {
+    color: #5A4A42;
+}
+
+.card img {
+    border-radius: 10px 10px 0 0;
 }
 
 /* Формы */
 form {
-    background-color: #fff6f6; /* Пастельно-розовый */
-    padding: 20px;
+    background-color: #FFF2E6; /* Светлый пастельный оранжевый */
+    border: 1px solid #F5B7B1; /* Пастельный розовый */
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-    max-width: 500px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-form label {
-    display: block;
-    margin-bottom: 10px;
+form .form-label {
     font-weight: bold;
+    color: #5A4A42;
 }
 
-form input,
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f7f7f7; /* Очень светлый серый */
+form .form-control {
+    border: 1px solid #F5CBA7;
+    background-color: #FDEBD0;
 }
 
 form button {
-    background-color: #fbc4ab; /* Бледно-оранжевый */
-    color: #1b3a57; /* Тёмный синий текст */
+    background-color: #F4C2A1; /* Пастельный персиковый */
+    color: #5A4A42;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 form button:hover {
-    background-color: #f5a25d; /* Яркий оранжевый */
-    color: white;
+    background-color: #C97B63; /* Тёплый терракотовый */
+    color: #FFF;
 }
 
-/* Нижний колонтитул */
+/* Footer */
 footer {
-    background-color: #a7bed3; /* Светло-голубой */
-    color: white;
+    background-color: #FAD7A0; /* Пастельный золотистый */
+    color: #5A4A42;
     text-align: center;
-    padding: 10px;
-    border-top: 5px solid #6b9bbf; /* Тёмно-голубой акцент */
-    font-size: 14px;
+    padding: 10px 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Общие элементы */
+.container {
+    padding-top: 20px;
+}
+
+.btn {
+    background-color: #F4C2A1; /* Пастельный персиковый */
+    color: #5A4A42;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #C97B63; /* Тёплый терракотовый */
+    color: #FFF;
 }
