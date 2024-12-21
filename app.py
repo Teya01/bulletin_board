@@ -124,21 +124,29 @@ def logout():
 @app.route("/ads/create", methods=['GET', 'POST'])
 def create_ad():
     if 'user_id' not in session:
-        return redirect('/login')
+        return redirect('/login')  # Перенаправление на страницу логина, если пользователь не авторизован
 
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        author_id = session['user_id']  # Получаем user_id из сессии
+
+        if not title or not content:
+            return "Заполните все поля."  # Проверка на пустые поля
 
         conn, cur = db_connect()
         placeholder = get_placeholder()
+        
+        # Выполняем запрос с использованием параметризированного запроса для предотвращения SQL инъекций
         cur.execute(f"""
             INSERT INTO ads (title, content, author_id)
             VALUES ({placeholder}, {placeholder}, {placeholder});
-        """, (title, content, session['user_id']))
+        """, (title, content, author_id))  # Передаем title, content и author_id
         db_close(conn, cur)
-        return redirect('/')
+        return redirect('/')  # Перенаправление на главную страницу после успешного создания объявления
+
     return render_template("create_ad.html")
+
 
 # Редактирование объявления
 @app.route("/ads/edit/<int:ad_id>", methods=['GET', 'POST'])
