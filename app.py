@@ -14,13 +14,14 @@ print(hashed_password)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super_secret_key'
-app.config['DB_TYPE'] = os.getenv('DB_TYPE, 'postgres')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'секретно-секретный секрет')
+app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 # Подключение к базе данных
 def db_connect():
-    if current_app.config['DB_TYPE'] == 'postgres':
+    if app.config['DB_TYPE'] == 'postgres':
         conn = psycopg2.connect(
             host="127.0.0.1",
             port="5433",
