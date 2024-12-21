@@ -214,5 +214,3 @@ def manage_users():
     users = cur.fetchall()
     db_close(conn, cur)
     return render_template("manage_users.html", users=users)
-
-
