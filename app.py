@@ -6,7 +6,6 @@ from psycopg2.extras import RealDictCursor
 import os
 from os import path
 import sqlite3
-from werkzeug.security import generate_password_hash
 
 password = "adminpassword"  # Ваш пароль
 hashed_password = generate_password_hash(password)
@@ -47,13 +46,18 @@ def db_close(conn, cur):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Формирование правильного плейсхолдера для запросов
+def get_placeholder():
+    return "%s" if app.config['DB_TYPE'] == 'postgres' else "?"
+
 # Главная страница
 @app.route("/")
 def index():
     conn, cur = db_connect()
-    cur.execute("""
+    placeholder = get_placeholder()
+    cur.execute(f"""
         SELECT ads.id, ads.title, ads.content, users.username AS author, users.avatar, 
-               CASE WHEN %s IS NOT NULL THEN users.email ELSE NULL END AS author_email
+               CASE WHEN {placeholder} IS NOT NULL THEN users.email ELSE NULL END AS author_email
         FROM ads
         JOIN users ON ads.author_id = users.id;
     """, (session.get('user_id'),))
@@ -80,9 +84,10 @@ def register():
         hashed_password = generate_password_hash(password)
 
         conn, cur = db_connect()
-        cur.execute("""
+        placeholder = get_placeholder()
+        cur.execute(f"""
             INSERT INTO users (username, email, password, avatar, about) 
-            VALUES (%s, %s, %s, %s, %s);
+            VALUES ({placeholder}, {placeholder}, {placeholder}, {placeholder}, {placeholder});
         """, (username, email, hashed_password, avatar_filename, about))
         db_close(conn, cur)
         return redirect('/login')
@@ -96,7 +101,8 @@ def login():
         password = request.form['password']
 
         conn, cur = db_connect()
-        cur.execute("SELECT * FROM users WHERE username = %s;", (username,))
+        placeholder = get_placeholder()
+        cur.execute(f"SELECT * FROM users WHERE username = {placeholder};", (username,))
         user = cur.fetchone()
         db_close(conn, cur)
 
@@ -125,9 +131,10 @@ def create_ad():
         content = request.form['content']
 
         conn, cur = db_connect()
-        cur.execute("""
+        placeholder = get_placeholder()
+        cur.execute(f"""
             INSERT INTO ads (title, content, author_id)
-            VALUES (%s, %s, %s);
+            VALUES ({placeholder}, {placeholder}, {placeholder});
         """, (title, content, session['user_id']))
         db_close(conn, cur)
         return redirect('/')
@@ -140,9 +147,10 @@ def edit_ad(ad_id):
         return redirect('/login')
 
     conn, cur = db_connect()
+    placeholder = get_placeholder()
 
     if request.method == 'GET':
-        cur.execute("SELECT * FROM ads WHERE id = %s AND author_id = %s;", (ad_id, session['user_id']))
+        cur.execute(f"SELECT * FROM ads WHERE id = {placeholder} AND author_id = {placeholder};", (ad_id, session['user_id']))
         ad = cur.fetchone()
         db_close(conn, cur)
         if not ad:
@@ -151,8 +159,8 @@ def edit_ad(ad_id):
 
     title = request.form['title']
     content = request.form['content']
-    cur.execute("""
-        UPDATE ads SET title = %s, content = %s WHERE id = %s AND author_id = %s;
+    cur.execute(f"""
+        UPDATE ads SET title = {placeholder}, content = {placeholder} WHERE id = {placeholder} AND author_id = {placeholder};
     """, (title, content, ad_id, session['user_id']))
     db_close(conn, cur)
     return redirect('/')
@@ -164,7 +172,8 @@ def delete_ad(ad_id):
         return redirect('/login')
 
     conn, cur = db_connect()
-    cur.execute("DELETE FROM ads WHERE id = %s AND author_id = %s;", (ad_id, session['user_id']))
+    placeholder = get_placeholder()
+    cur.execute(f"DELETE FROM ads WHERE id = {placeholder} AND author_id = {placeholder};", (ad_id, session['user_id']))
     db_close(conn, cur)
     return redirect('/')
 
@@ -176,14 +185,15 @@ def api():
     params = data.get("params", {})
 
     conn, cur = db_connect()
+    placeholder = get_placeholder()
 
     if method == "delete_user" and session.get('is_admin'):
-        cur.execute("DELETE FROM users WHERE id = %s;", (params['user_id'],))
+        cur.execute(f"DELETE FROM users WHERE id = {placeholder};", (params['user_id'],))
         db_close(conn, cur)
         return jsonify({"result": "User deleted successfully"})
     
     if method == "delete_ad" and session.get('is_admin'):
-        cur.execute("DELETE FROM ads WHERE id = %s;", (params['ad_id'],))
+        cur.execute(f"DELETE FROM ads WHERE id = {placeholder};", (params['ad_id'],))
         db_close(conn, cur)
         return jsonify({"result": "Ad deleted successfully"})
 
@@ -199,8 +209,10 @@ def manage_users():
         return redirect('/')
 
     conn, cur = db_connect()
-    cur.execute("SELECT id, username, email FROM users WHERE NOT is_admin;")
+    placeholder = get_placeholder()
+    cur.execute(f"SELECT id, username, email FROM users WHERE NOT is_admin;")
     users = cur.fetchall()
     db_close(conn, cur)
     return render_template("manage_users.html", users=users)
+
 
