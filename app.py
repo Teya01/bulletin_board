@@ -13,7 +13,6 @@ hashed_password = generate_password_hash(password)
 print(hashed_password)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'super_secret_key'
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'секретно-секретный секрет')
 app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
